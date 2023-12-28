@@ -8,7 +8,7 @@
 import Foundation
 
 public class TestableRepositoryFactory {
-    public static func createTestableRepository<T: RepositoryElement>() -> RepositorySpy<T> {
+    public static func createRepository<T: RepositoryElement>() -> RepositorySpy<T> {
         return RepositorySpy()
     }
 }

@@ -10,6 +10,7 @@ import Dependencies
 
 private enum FileProviderKey: DependencyKey {
     static let liveValue: FileProvider = LocalFileProvider()
+    static var testValue: FileProvider = FileProviderSpy()
 }
 
 extension DependencyValues {
