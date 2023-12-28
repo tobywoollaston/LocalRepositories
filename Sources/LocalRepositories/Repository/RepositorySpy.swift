@@ -33,7 +33,7 @@ public class RepositorySpy<T: RepositoryElement>: Repository {
         return getAllCallsCount > 0
     }
     public var getAllThrowableError: Error?
-    public var getAllReturnValue: [T]?
+    public var getAllReturnValue: [T] = []
     public var getAllClosure: (() throws -> [T])?
     public func getAll() async throws -> [T] {
         getAllCallsCount += 1
@@ -43,7 +43,7 @@ public class RepositorySpy<T: RepositoryElement>: Repository {
         if getAllClosure != nil {
             return try getAllClosure!()
         } else {
-            return getAllReturnValue!
+            return getAllReturnValue
         }
     }
     
