@@ -10,7 +10,6 @@ import Dependencies
 
 private enum JsonParserKey: DependencyKey {
     static let liveValue: JsonParser = FoundationJsonParser()
-    static var testValue: JsonParser = FoundationJsonParser()
 }
 
 extension DependencyValues {
