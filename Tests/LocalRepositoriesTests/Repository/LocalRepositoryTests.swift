@@ -79,4 +79,10 @@ final class LocalRepositoryTests: XCTestCase {
         XCTAssertTrue(fileProviderSpy.readCalled)
         XCTAssertEqual(jsonParserSpy.encodeReceivedData as! [String: MyItem], [item2.id: item2])
     }
+    
+    func test_clearLocalRepository_shouldClearAllItems() async throws {
+        try repo.clearLocalRepository()
+        
+        XCTAssertEqual(jsonParserSpy.encodeReceivedData as! [String: MyItem], [:])
+    }
 }

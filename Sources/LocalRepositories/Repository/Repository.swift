@@ -14,4 +14,5 @@ public protocol Repository<RE> {
     func getAll() async throws -> [RE]
     func getBy(id: String) async throws -> RE
     func delete(id: String) async throws
+    func clearLocalRepository() throws
 }

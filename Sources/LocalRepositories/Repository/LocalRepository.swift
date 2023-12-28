@@ -44,6 +44,11 @@ class LocalRepository<T: RepositoryElement>: Repository {
         try save(database)
     }
     
+    func clearLocalRepository() throws {
+        let database = [String: T]()
+        try save(database)
+    }
+    
     private func save(_ database: [String: T]) throws {
         let contents = try jsonParser.encode(database)
         try fileProvider.save(contents, to: fileName)

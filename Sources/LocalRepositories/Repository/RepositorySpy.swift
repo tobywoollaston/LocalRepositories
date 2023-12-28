@@ -89,4 +89,20 @@ public class RepositorySpy<T: RepositoryElement>: Repository {
             try deleteClosure!(id)
         }
     }
+    
+    public var clearLocalRepositoryCallsCount = 0
+    public var clearLocalRepositoryCalled: Bool {
+        return clearLocalRepositoryCallsCount > 0
+    }
+    public var clearLocalRepositoryThrowableError: Error?
+    public var clearLocalRepositoryClosure: (() throws -> Void)?
+    public func clearLocalRepository() throws {
+        clearLocalRepositoryCallsCount += 1
+        if let clearLocalRepositoryThrowableError {
+            throw clearLocalRepositoryThrowableError
+        }
+        if clearLocalRepositoryClosure != nil {
+            try clearLocalRepositoryClosure!()
+        }
+    }
 }
