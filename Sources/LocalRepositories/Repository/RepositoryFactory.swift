@@ -11,7 +11,4 @@ public class RepositoryFactory {
     public static func createRepositoryFor<T: RepositoryElement>(_ fileName: String) -> any Repository<T> {
         return LocalRepository<T>(fileName)
     }
-    public static func createTestableRepository<T: RepositoryElement>() -> RepositorySpy<T> {
-        return RepositorySpy()
-    }
 }
