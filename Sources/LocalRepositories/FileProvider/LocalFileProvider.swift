@@ -30,7 +30,7 @@ class LocalFileProvider: FileProvider {
     }
     
     private func fileUrl(for fileName: String) -> URL {
-        let filePath = documentsDirectoryUrl().appendingPathComponent(fileName)
+        let filePath = documentsDirectoryUrl().appendingPathComponent("databases").appendingPathComponent(fileName)
         print(filePath.path)
 //        if fileManager.fileExists(atPath: filePath.path) == false {
 //            throw FileProviderError.doesNotExist
