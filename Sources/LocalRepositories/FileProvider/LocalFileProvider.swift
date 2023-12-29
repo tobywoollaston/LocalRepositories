@@ -20,7 +20,9 @@ class LocalFileProvider: FileProvider {
     
     func save(_ content: String, to fileName: String) throws {
         let fileUrl = try fileUrl(for: fileName)
-        return try content.write(to: fileUrl, atomically: true, encoding: .utf8)
+        let data = content.data(using: String.Encoding.utf8)!
+        try data.write(to: fileUrl, options: .atomic)
+//        return try content.write(to: fileUrl, atomically: true, encoding: .utf8)
     }
     
     private func fileUrl(for fileName: String) throws -> URL {
