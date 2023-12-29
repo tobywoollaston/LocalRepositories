@@ -60,6 +60,7 @@ class LocalRepository<T: RepositoryElement>: Repository {
             return try jsonParser.decode(contents)
         } catch FileProviderError.doesNotExist {
             // we're fine
+            return [:]
         } catch {
             // not as fine
         }
