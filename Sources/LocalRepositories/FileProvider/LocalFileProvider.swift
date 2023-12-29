@@ -12,25 +12,29 @@ class LocalFileProvider: FileProvider {
     private let fileManager = FileManager()
     
     func read(_ fileName: String) throws -> String {
-        let fileUrl = try fileUrl(for: fileName)
+        let fileUrl = fileUrl(for: fileName)
+        if fileManager.fileExists(atPath: fileUrl.path) == false {
+            throw FileProviderError.doesNotExist
+        }
+        
         let data = try Data(contentsOf: fileUrl)
         let output = String(decoding: data, as: UTF8.self)
         return output
     }
     
     func save(_ content: String, to fileName: String) throws {
-        let fileUrl = try fileUrl(for: fileName)
-        let data = content.data(using: String.Encoding.utf8)!
-        try data.write(to: fileUrl, options: .atomic)
-//        return try content.write(to: fileUrl, atomically: true, encoding: .utf8)
+        let fileUrl = fileUrl(for: fileName)
+//        let data = content.data(using: String.Encoding.utf8)!
+//        try data.write(to: fileUrl, options: .atomic)
+        return try content.write(to: fileUrl, atomically: true, encoding: .utf8)
     }
     
-    private func fileUrl(for fileName: String) throws -> URL {
+    private func fileUrl(for fileName: String) -> URL {
         let filePath = documentsDirectoryUrl().appendingPathComponent(fileName)
         print(filePath.path)
-        if fileManager.fileExists(atPath: filePath.path) == false {
-            throw FileProviderError.doesNotExist
-        }
+//        if fileManager.fileExists(atPath: filePath.path) == false {
+//            throw FileProviderError.doesNotExist
+//        }
         return filePath
     }
     
