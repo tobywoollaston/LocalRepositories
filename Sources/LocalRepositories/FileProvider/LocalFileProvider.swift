@@ -25,6 +25,7 @@ class LocalFileProvider: FileProvider {
     
     private func fileUrl(for fileName: String) throws -> URL {
         let filePath = documentsDirectoryUrl().appendingPathComponent(fileName)
+        print(filePath.path)
         if fileManager.fileExists(atPath: filePath.path) == false {
             throw FileProviderError.doesNotExist
         }
