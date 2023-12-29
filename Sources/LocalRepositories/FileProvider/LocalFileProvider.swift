@@ -12,7 +12,7 @@ class LocalFileProvider: FileProvider {
     private let fileManager = FileManager()
     
     func read(_ fileName: String) throws -> String {
-        let fileUrl = fileUrl(for: fileName)
+        let fileUrl = try fileUrl(for: fileName)
         if fileManager.fileExists(atPath: fileUrl.path) == false {
             throw FileProviderError.doesNotExist
         }
@@ -23,14 +23,18 @@ class LocalFileProvider: FileProvider {
     }
     
     func save(_ content: String, to fileName: String) throws {
-        let fileUrl = fileUrl(for: fileName)
+        let fileUrl = try fileUrl(for: fileName)
 //        let data = content.data(using: String.Encoding.utf8)!
 //        try data.write(to: fileUrl, options: .atomic)
         return try content.write(to: fileUrl, atomically: true, encoding: .utf8)
     }
     
-    private func fileUrl(for fileName: String) -> URL {
-        let filePath = documentsDirectoryUrl().appendingPathComponent("databases").appendingPathComponent(fileName)
+    private func fileUrl(for fileName: String) throws -> URL {
+        let databaseFolder = documentsDirectoryUrl().appendingPathComponent("databases")
+        let filePath = databaseFolder.appendingPathComponent(fileName)
+        
+        try fileManager.createDirectory(atPath: databaseFolder.path, withIntermediateDirectories: true)
+        
         print(filePath.path)
 //        if fileManager.fileExists(atPath: filePath.path) == false {
 //            throw FileProviderError.doesNotExist
